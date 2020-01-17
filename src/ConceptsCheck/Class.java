@@ -1,7 +1,7 @@
 package ConceptsCheck;
 
-public class Class {
-  int a ;
+class Class {
+    private int a ;
  // private Class(){ }
   private Class(int a){
     this.a = a;
