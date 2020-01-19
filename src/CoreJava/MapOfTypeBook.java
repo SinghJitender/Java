@@ -12,7 +12,7 @@ public class MapOfTypeBook {
   public static void main(String[] args) {
 
     Book book = new Book("Art of war","Prachi",20,9);
-    Book book2 = book;
+    Book book2 = book; //new Book("Art of war 2","Jitu",30,90);
     Map<Book,String>  map = new HashMap<>();
     map.put(book,"ABC");
     System.out.println(map.get(book2));
