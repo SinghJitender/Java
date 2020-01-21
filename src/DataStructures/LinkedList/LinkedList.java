@@ -18,6 +18,36 @@ public class LinkedList<T> {
         }
     }
 
+    public void add(T value, int index) {
+        Node node = new Node(value);
+        int currIndex=0;
+        Node temp = head;
+        Node prev = null;
+        if(index < 0){
+            throw new IndexOutOfBoundsException(index);
+        }
+        if(index == 0) {
+           head = node;
+           node.setNode(temp);
+           return;
+        }
+        while(true) {
+            if(temp==null) {
+                System.out.println("Index ["+index+"] not found. Adding element in the end.");
+                add(value);
+                break;
+            }
+            if(currIndex==index) {
+                prev.setNode(node);
+                node.setNode(temp);
+                break;
+            }
+            prev = temp;
+            temp=temp.nextNode();
+            currIndex++;
+        }
+    }
+
     public void print(){
         Node temp = head;
         while(temp != null) {
