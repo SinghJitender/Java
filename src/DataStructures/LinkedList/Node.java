@@ -1,8 +1,9 @@
 package DataStructures.LinkedList;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Node<T> {
+public class Node<T> implements Comparable<T> {
     private Node next=null;
     private T value;
 
@@ -16,6 +17,10 @@ public class Node<T> {
 
     public T getValue() {
         return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 
     public void setNode(Node node) {
@@ -42,5 +47,16 @@ public class Node<T> {
     @Override
     public int hashCode() {
         return Objects.hash(next, value);
+    }
+
+    @Override
+    public int compareTo(T t) {
+       if(t instanceof String) {
+           return ((String) this.value).compareTo((String)t);
+       }
+       else if(t instanceof Integer) {
+           return ((Integer) this.value).compareTo((Integer) t);
+       }
+       else return 0;
     }
 }
