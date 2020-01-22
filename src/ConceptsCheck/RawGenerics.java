@@ -9,9 +9,9 @@ public class RawGenerics {
   public static void main(String[] args) {
 
     List list = new ArrayList<>();
-    list.add(new Test("Jitu",24));
-    list.add(new Test("Sukhmani",24));
-    list.add(new Test("Prachi",22));
+    list.add(new Test1("Jitu",24));
+    list.add(new Test1("Sukhmani",24));
+    list.add(new Test1("Prachi",22));
     list.add(new Employee("Prachi",22));
 
     printString(list);
@@ -25,7 +25,7 @@ public class RawGenerics {
   public static void printString(List<?> list){
     Iterator it = list.iterator();
     while(it.hasNext()) {
-      Test i = (Test) it.next();
+      Test1 i = (Test1) it.next();
       System.out.println(i.toString());
     }
   }
@@ -58,11 +58,11 @@ class Employee {
   }
 }
 
-class Test {
+class Test1 {
   private final String name;
   private final int age;
 
-  public Test(String name, int age) {
+  public Test1(String name, int age) {
     this.name = name;
     this.age = age;
   }
