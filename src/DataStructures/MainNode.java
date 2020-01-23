@@ -1,7 +1,5 @@
 package DataStructures;
 
-import java.util.stream.IntStream;
-
 public class MainNode {
 
   public static void main(String[] args) {
