@@ -12,6 +12,7 @@ public class Main {
         doublyLinkedList.printFromStart();
         doublyLinkedList.addAtBeginning(50);
         doublyLinkedList.printFromStart();
+        System.out.println(doublyLinkedList.size());
         //doublyLinkedList.printFromEnd();
 
         doublyLinkedList.addAtIndex(100,0);
@@ -23,11 +24,13 @@ public class Main {
 
         doublyLinkedList.deleteFromEnd();
         doublyLinkedList.printFromStart();
+        System.out.println(doublyLinkedList.size());
 
         doublyLinkedList.deleteAtIndex(2);
         doublyLinkedList.printFromStart();
 
         System.out.println(doublyLinkedList.isEmpty());
+        System.out.println(doublyLinkedList.size());
 
     }
 }

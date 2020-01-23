@@ -5,6 +5,7 @@ import DataStructures.LinkedList.Node;
 public class DoublyLinkedList<T> {
     private DoublyLinkedListNode start= null;
     private DoublyLinkedListNode end = null;
+    private int SIZE = 0;
 
     public DoublyLinkedList() {
     }
@@ -16,12 +17,14 @@ public class DoublyLinkedList<T> {
             node.setNext(null);
             start = node;
             end = node;
+            SIZE=SIZE+1;
             return;
         }
         start.setPrevious(node);
         node.setPrevious(null);
         node.setNext(start);
         start=node;
+        SIZE=SIZE+1;
         return;
     }
 
@@ -32,12 +35,14 @@ public class DoublyLinkedList<T> {
             node.setNext(null);
             start = node;
             end = node;
+            SIZE=SIZE+1;
             return;
         }
         end.setNext(node);
         node.setPrevious(end);
         node.setNext(null);
         end=node;
+        SIZE=SIZE+1;
         return;
     }
 
@@ -57,12 +62,14 @@ public class DoublyLinkedList<T> {
             node.setNext(temp);
             temp.setPrevious(node);
             start = node;
+            SIZE=SIZE+1;
             return;
         }
         if(temp == end){
             node.setPrevious(temp);
             temp.setNext(node);
             end = node;
+            SIZE=SIZE+1;
             return;
         }
 
@@ -70,7 +77,7 @@ public class DoublyLinkedList<T> {
         node.setPrevious(temp.getPrevious());
         node.setNext(temp);
         temp.setPrevious(node);
-
+        SIZE=SIZE+1;
         return;
     }
 
@@ -97,6 +104,7 @@ public class DoublyLinkedList<T> {
         start = start.getNext();
         start.setPrevious(null);
         temp = null;
+        SIZE=SIZE-1;
         return;
     }
 
@@ -105,6 +113,7 @@ public class DoublyLinkedList<T> {
         end = end.getPrevious();
         end.setNext(null);
         temp = null;
+        SIZE=SIZE-1;
         return;
     }
 
@@ -130,12 +139,17 @@ public class DoublyLinkedList<T> {
         temp.getPrevious().setNext(temp.getNext());
         temp.getNext().setPrevious(temp.getPrevious());
         temp=null;
+        SIZE=SIZE-1;
         return;
 
     }
 
     public boolean isEmpty(){
         return (start==null && end==null);
+    }
+
+    public int size(){
+        return SIZE;
     }
 
 }
