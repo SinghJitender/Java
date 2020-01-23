@@ -4,6 +4,8 @@ public class Main {
     public static void main(String[] args) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
 
+
+
         System.out.println(doublyLinkedList.isEmpty());
         doublyLinkedList.addAtBeginning(10);
         doublyLinkedList.addAtEnd(20);
@@ -31,6 +33,10 @@ public class Main {
 
         System.out.println(doublyLinkedList.isEmpty());
         System.out.println(doublyLinkedList.size());
+
+        for(int i=0;i<doublyLinkedList.size();i++){
+            System.out.println(doublyLinkedList.get(i).getValue());
+        }
 
     }
 }

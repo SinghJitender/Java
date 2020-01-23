@@ -152,4 +152,17 @@ public class DoublyLinkedList<T> {
         return SIZE;
     }
 
+    public DoublyLinkedListNode get(int index){
+        DoublyLinkedListNode temp = start;
+        int currentindex=0;
+        while(currentindex != index) {
+            if(temp.getNext() == null) {
+                throw new IndexOutOfBoundsException(index);
+            }
+            currentindex++;
+            temp=temp.getNext();
+        }
+        return temp;
+    }
+
 }
