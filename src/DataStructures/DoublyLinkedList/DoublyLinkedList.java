@@ -134,4 +134,8 @@ public class DoublyLinkedList<T> {
 
     }
 
+    public boolean isEmpty(){
+        return (start==null && end==null);
+    }
+
 }

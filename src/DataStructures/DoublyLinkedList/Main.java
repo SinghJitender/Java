@@ -3,6 +3,8 @@ package DataStructures.DoublyLinkedList;
 public class Main {
     public static void main(String[] args) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
+
+        System.out.println(doublyLinkedList.isEmpty());
         doublyLinkedList.addAtBeginning(10);
         doublyLinkedList.addAtEnd(20);
         doublyLinkedList.addAtEnd(30);
@@ -24,5 +26,8 @@ public class Main {
 
         doublyLinkedList.deleteAtIndex(2);
         doublyLinkedList.printFromStart();
+
+        System.out.println(doublyLinkedList.isEmpty());
+
     }
 }
