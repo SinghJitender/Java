@@ -1,5 +1,7 @@
 package DataStructures.DoublyLinkedList;
 
+import DataStructures.LinkedList.Node;
+
 public class DoublyLinkedList<T> {
     private DoublyLinkedListNode start= null;
     private DoublyLinkedListNode end = null;
@@ -89,5 +91,47 @@ public class DoublyLinkedList<T> {
         }
         System.out.println(" null");
     }
-    
+
+    public void deleteFromBeginning(){
+        DoublyLinkedListNode temp = start;
+        start = start.getNext();
+        start.setPrevious(null);
+        temp = null;
+        return;
+    }
+
+    public void deleteFromEnd(){
+        DoublyLinkedListNode temp = end;
+        end = end.getPrevious();
+        end.setNext(null);
+        temp = null;
+        return;
+    }
+
+    public void deleteAtIndex(int index) {
+        int currindex=0;
+        DoublyLinkedListNode temp = start;
+        while(currindex != index) {
+            currindex++;
+            if(temp.getNext() == null){
+                System.out.println("Index not found");
+                return;
+            }
+            temp = temp.getNext();
+        }
+        if(temp == start) {
+            deleteFromBeginning();
+            return;
+        }
+        if(temp == end) {
+            deleteFromEnd();
+            return;
+        }
+        temp.getPrevious().setNext(temp.getNext());
+        temp.getNext().setPrevious(temp.getPrevious());
+        temp=null;
+        return;
+
+    }
+
 }

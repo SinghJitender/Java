@@ -15,5 +15,14 @@ public class Main {
         doublyLinkedList.addAtIndex(100,0);
         doublyLinkedList.addAtIndex(160,5);
         doublyLinkedList.printFromStart();
+
+        doublyLinkedList.deleteFromBeginning();
+        doublyLinkedList.printFromStart();
+
+        doublyLinkedList.deleteFromEnd();
+        doublyLinkedList.printFromStart();
+
+        doublyLinkedList.deleteAtIndex(2);
+        doublyLinkedList.printFromStart();
     }
 }
