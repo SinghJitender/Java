@@ -7,12 +7,46 @@ public class Tree<T> {
   }
 
   public void add(T value){
-    TreeNode treeNode = new TreeNode(value);
-    if(root==null) {
-      root = treeNode;
+   root = addRecursive(root, value);
+  }
+
+  private TreeNode addRecursive(TreeNode position ,T value) {
+    if(position == null) {
+      return new TreeNode(value);
     }
+    if(position.compareTo(value)>0) {
+      position.setLeft(addRecursive(position.getLeft(),value));
+    }
+    if(position.compareTo(value)<0) {
+      position.setRight(addRecursive(position.getRight(),value));
+    }
+    return position;
+  }
+
+  public void inOrderTraversal() {
+    TreeNode node = root;
+    traverseInOrder(node);
+  }
+
+  private void traverseInOrder(TreeNode node) {
+    if(node == null) {
+      return;
+    }
+    traverseInOrder(node.getLeft());
+    System.out.println(node.getValue());
+    traverseInOrder(node.getRight());
+  }
+
+  public TreeNode getRoot() {
+    return root;
+  }
+
+  public void printTree() {
 
   }
 
+  private void getNodeData(){
+
+  }
 
 }

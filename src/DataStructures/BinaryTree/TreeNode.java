@@ -1,6 +1,8 @@
 package DataStructures.BinaryTree;
 
-public class TreeNode<T> {
+import java.util.Objects;
+
+public class TreeNode<T> implements Comparable<T> {
   private T value;
   private TreeNode left = null;
   private TreeNode right = null;
@@ -36,5 +38,30 @@ public class TreeNode<T> {
       ", left=" + left +
       ", right=" + right +
       '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TreeNode<?> treeNode = (TreeNode<?>) o;
+    return Objects.equals(value, treeNode.value) ;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
+  }
+
+  @Override
+  public int compareTo(T t) {
+     if(t instanceof String) {
+       return this.getValue().toString().compareTo(t.toString());
+    } else if(t instanceof Integer) {
+       return  ((Integer)this.getValue()) - (Integer)t;
+     }
+     else{
+       return 0;
+     }
   }
 }
