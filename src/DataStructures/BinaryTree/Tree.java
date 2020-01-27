@@ -1,5 +1,7 @@
 package DataStructures.BinaryTree;
 
+import java.util.ArrayList;
+
 public class Tree<T> {
   private TreeNode root = null;
 
@@ -26,6 +28,7 @@ public class Tree<T> {
   public void inOrderTraversal() {
     TreeNode node = root;
     traverseInOrder(node);
+    System.out.println();
   }
 
   private void traverseInOrder(TreeNode node) {
@@ -33,7 +36,7 @@ public class Tree<T> {
       return;
     }
     traverseInOrder(node.getLeft());
-    System.out.println(node.getValue());
+    System.out.print(node.getValue()+" ");
     traverseInOrder(node.getRight());
   }
 
@@ -41,12 +44,52 @@ public class Tree<T> {
     return root;
   }
 
-  public void printTree() {
-
+  public void preOrderTraversal(){
+      traverseInPreOrder(root);
+      System.out.println();
+  }
+  private void traverseInPreOrder(TreeNode node){
+      if(node == null)
+          return;
+      System.out.print(node.getValue()+ " ");
+      traverseInPreOrder(node.getLeft());
+      traverseInPreOrder(node.getRight());
   }
 
-  private void getNodeData(){
+    public void postOrderTraversal(){
+        traverseInPostOrder(root);
+        System.out.println();
+    }
+    private void traverseInPostOrder(TreeNode node){
+        if(node == null)
+            return;
+        traverseInPreOrder(node.getLeft());
+        traverseInPreOrder(node.getRight());
+        System.out.print(node.getValue()+ " ");
+    }
 
-  }
+    public void levelOrderTraversal(){
+      ArrayList<TreeNode> list = new ArrayList<>();
+      list.add(root);
+      traverseInLevelOrder(list);
+
+    }
+    private void traverseInLevelOrder(ArrayList<TreeNode> list) {
+      ArrayList<TreeNode> tempList = new ArrayList<>();
+        for(TreeNode node: list){
+            if(node == null){
+                continue;
+            }
+            System.out.print(node.getValue()+ " ");
+            if(node.getLeft() != null)
+                tempList.add(node.getLeft());
+            if(node.getRight() != null)
+               tempList.add(node.getRight());
+        }
+        if(tempList.size()==0){
+            return;
+        }
+        traverseInLevelOrder(tempList);
+    }
 
 }

@@ -11,8 +11,22 @@ public class Main {
         tree.add(11);
         tree.add(23);
 
+        System.out.print("Inorder traversal of tree : ");
         tree.inOrderTraversal();
 
-        System.out.println("Root : "+ tree.getRoot().getValue());
+        //System.out.println("Root : "+ tree.getRoot().getValue());
+
+        System.out.print("Preorder traversal of tree : ");
+        tree.preOrderTraversal();
+
+        System.out.print("Postorder traversal of tree : ");
+        //System.out.println("Root : "+ tree.getRoot().getValue());
+
+        tree.postOrderTraversal();
+
+        //System.out.println("Root : "+ tree.getRoot().getValue());
+
+        System.out.print("Level Order traversal of tree : ");
+        tree.levelOrderTraversal();
     }
 }
