@@ -28,5 +28,11 @@ public class Main {
 
         System.out.print("Level Order traversal of tree : ");
         tree.levelOrderTraversal();
+
+        System.out.println("\nSearch in tree : "+3);
+        tree.search(3);
+
+        System.out.println("Search in tree : "+ 23);
+        tree.search(23);
     }
 }
