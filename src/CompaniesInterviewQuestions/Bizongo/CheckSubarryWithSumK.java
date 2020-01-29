@@ -1,4 +1,4 @@
-package Problems;
+package CompaniesInterviewQuestions.Bizongo;
 
 public class CheckSubarryWithSumK {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package MorganStanley;
+package CompaniesInterviewQuestions.MorganStanley;
 
 import java.util.ArrayList;
 import static java.util.Arrays.asList;

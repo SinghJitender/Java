@@ -1,8 +1,6 @@
-package MorganStanley;
+package CompaniesInterviewQuestions.MorganStanley;
 
 import java.util.*;
-
-import static java.util.Arrays.asList;
 
 public class AssignTasks {
   private static Scanner sc = new Scanner(System.in);

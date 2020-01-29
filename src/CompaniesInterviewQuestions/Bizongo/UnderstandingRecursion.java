@@ -1,4 +1,4 @@
-package Problems;
+package CompaniesInterviewQuestions.Bizongo;
 
 import java.util.ArrayList;
 
