@@ -1,12 +1,12 @@
 package Java8.Stream;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class MoreOnGroupBy {
     public static void main(String[] args) {
-        List<Employee> liftOfEmployees = Arrays.asList(
+        List<Employee> listOfEmployees = Arrays.asList(
                 new Employee("Jitender Pal Singh","Developer",50000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
                 new Employee("Amit Ranjan","QA",100000L,"Goldman Sachs","Vikash Kumar Aggarwal","Senior Associate L1","GLM"),
                 new Employee("Rohin Dhingra","QA",45000L,"Goldman Sachs","Shinil Das","Associate L2","GLM"),
@@ -22,6 +22,13 @@ public class MoreOnGroupBy {
 
 
         // Convert List to map with key as ID and value as whole employee object
+        Map<Integer,Employee> mapOfEmployee = listOfEmployees.stream().collect(Collectors.toMap(item -> item.getId(),item -> item));
+        System.out.println(mapOfEmployee);
+
+        // Convert List to map with key as employee Object Hashcode and value as employee Object
+        Map<Object,Employee> mapOfEmployee2 = listOfEmployees.stream().collect(Collectors.toMap(item -> item.hashCode(),Function.identity()));
+        System.out.println(mapOfEmployee2);
+
         // GroupBy title Developer
         // GroupBy salary between 65,000 to 1,00,000
         // GroupBy project and account
@@ -33,6 +40,7 @@ public class MoreOnGroupBy {
 }
 
 class Employee {
+    private static int count =1;
     private int id;
     private String name;
     private String title;
@@ -50,7 +58,7 @@ class Employee {
         this.manager = manager;
         this.level = level;
         this.account = account;
-        this.id = (int)(Math.random() * 50 + 1);
+        this.id = count++;
     }
 
     public int getId() {
@@ -111,6 +119,40 @@ class Employee {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", salary=" + salary +
+                ", project='" + project + '\'' +
+                ", manager='" + manager + '\'' +
+                ", level='" + level + '\'' +
+                ", account='" + account + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id &&
+                salary == employee.salary &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(title, employee.title) &&
+                Objects.equals(project, employee.project) &&
+                Objects.equals(manager, employee.manager) &&
+                Objects.equals(level, employee.level) &&
+                Objects.equals(account, employee.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, title, salary, project, manager, level, account);
     }
 }
 
