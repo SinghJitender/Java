@@ -11,7 +11,7 @@ public class MoreOnGroupBy {
                 new Employee("Amit Ranjan","QA",100000L,"Goldman Sachs","Vikash Kumar Aggarwal","Senior Associate L1","GLM"),
                 new Employee("Rohin Dhingra","QA",45000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
                 new Employee("Saquib Kamal","DevOps",80000L,"Goldman Sachs","Balaji","Associate L2","GLM"),
-                new Employee("Ravi Awasthi","Developer",90000L,"Goldman Sachs","Bhavesh Kumar","Associate L1","GLM"),
+                new Employee("Ravi Awasthi","Developer",90000L,"Goldman Sachs","Bhavesh","Associate L1","GLM"),
                 new Employee("Megha Gulati ","QA",50000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
                 new Employee("Deepika Metha","QA",50000L,"Goldman Sachs","Shinil Das","Senior Associate L1","DAS"),
                 new Employee("Naveen Mishra","Developer",75000L,"Goldman Sachs","Dipin","Senior Associate L1","Marcus"),
@@ -71,7 +71,20 @@ public class MoreOnGroupBy {
         Map<String,Long> groupByAccountCount = listOfEmployees.stream().collect( Collectors.groupingBy( item->item.getAccount(), Collectors.counting() ) ) ;
 
         System.out.println(groupByAccountCount);
-        // count of managers in each account
+
+        // count of employees under each manager
+
+        Map<String,Long> countOfManagerInAccount = listOfEmployees.stream().collect( Collectors.groupingBy( item -> item.getManager(), Collectors.counting()));
+
+        System.out.println(countOfManagerInAccount);
+
+        //names of manager in each project
+
+        Map<String,Set<String>> namesOfManager = listOfEmployees.stream().collect(
+                Collectors.groupingBy(item ->item.getProject() , Collectors.mapping(item -> item.getManager(), Collectors.toSet())));
+
+        System.out.println(namesOfManager);
+
         // GroupBy level
         // GroupBy title having salary between 30,000 and 1,20,000
     }
