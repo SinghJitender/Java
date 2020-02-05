@@ -33,15 +33,25 @@ public class MoreOnGroupBy {
         Map<String,Set<Employee>> groupByTitle = listOfEmployees.stream().collect(
                 Collectors.groupingBy(item -> item.getTitle(), Collectors.mapping(Function.identity(),Collectors.toSet()))
         );
-        System.out.println(groupByTitle);
+        //System.out.println(groupByTitle);
 
         Map<String,Set<String>> groupByTitleDisplayNames = listOfEmployees.stream().collect(
                 Collectors.groupingBy(item -> item.getTitle(), Collectors.mapping(Employee::getName,Collectors.toSet()))
         );
-        System.out.println(groupByTitleDisplayNames);
+        //System.out.println(groupByTitleDisplayNames);
 
 
-        // GroupBy salary between 65,000 to 1,00,000
+        // GroupBy title fetch name where salary between 65,000 to 1,00,000
+
+        Map<String,Set<String>> groupBySalaryBetween = listOfEmployees.stream().collect(
+                Collectors.groupingBy( item -> item.getTitle() , Collectors.mapping( item -> {
+                    if (item.getSalary()>=65000 && item.getSalary()<= 100000)
+                        return item.getName();
+                    return null;
+                }, Collectors.filtering( item -> item != null, Collectors.toSet()) ) ) );
+        System.out.println(groupBySalaryBetween);
+
+
         // GroupBy project and account
         // count of employees in each account
         // count of managers in each account
