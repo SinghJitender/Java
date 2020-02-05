@@ -23,13 +23,24 @@ public class MoreOnGroupBy {
 
         // Convert List to map with key as ID and value as whole employee object
         Map<Integer,Employee> mapOfEmployee = listOfEmployees.stream().collect(Collectors.toMap(item -> item.getId(),item -> item));
-        System.out.println(mapOfEmployee);
+        //System.out.println(mapOfEmployee);
 
         // Convert List to map with key as employee Object Hashcode and value as employee Object
         Map<Object,Employee> mapOfEmployee2 = listOfEmployees.stream().collect(Collectors.toMap(item -> item.hashCode(),Function.identity()));
-        System.out.println(mapOfEmployee2);
+        //System.out.println(mapOfEmployee2);
 
         // GroupBy title Developer
+        Map<String,Set<Employee>> groupByTitle = listOfEmployees.stream().collect(
+                Collectors.groupingBy(item -> item.getTitle(), Collectors.mapping(Function.identity(),Collectors.toSet()))
+        );
+        System.out.println(groupByTitle);
+
+        Map<String,Set<String>> groupByTitleDisplayNames = listOfEmployees.stream().collect(
+                Collectors.groupingBy(item -> item.getTitle(), Collectors.mapping(Employee::getName,Collectors.toSet()))
+        );
+        System.out.println(groupByTitleDisplayNames);
+
+
         // GroupBy salary between 65,000 to 1,00,000
         // GroupBy project and account
         // count of employees in each account
