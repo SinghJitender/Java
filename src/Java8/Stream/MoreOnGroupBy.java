@@ -53,7 +53,7 @@ public class MoreOnGroupBy {
                                 return item.getName();
                             return null;
                         }, Collectors.filtering( item -> item != null, Collectors.toSet()) ) ) );
-        System.out.println(groupBySalaryBetween);
+        //System.out.println(groupBySalaryBetween);
 
 
         // GroupBy project and account
@@ -64,9 +64,13 @@ public class MoreOnGroupBy {
                           Collectors.mapping(item -> item.getName() ,Collectors.toSet())
           )));
 
-        System.out.println(groupByProjectThenAccount);
+        //System.out.println(groupByProjectThenAccount);
 
         // count of employees in each account
+
+        Map<String,Long> groupByAccountCount = listOfEmployees.stream().collect( Collectors.groupingBy( item->item.getAccount(), Collectors.counting() ) ) ;
+
+        System.out.println(groupByAccountCount);
         // count of managers in each account
         // GroupBy level
         // GroupBy title having salary between 30,000 and 1,20,000
