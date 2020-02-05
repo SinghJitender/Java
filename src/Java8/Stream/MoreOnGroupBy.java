@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.averagingInt;
+import static java.util.stream.Collectors.averagingLong;
+
 public class MoreOnGroupBy {
     public static void main(String[] args) {
         List<Employee> listOfEmployees = Arrays.asList(
@@ -105,20 +108,36 @@ public class MoreOnGroupBy {
           )));
         System.out.println(groupByTitleAndSalaryRange);
 
-        Map<String,Set<String[]>> groupByTitleAndSalaryRangeMultipleItems = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getTitle(),
+        //Fetch name,id,salary of employees GroupBy title having salary between 30,000 and 1,20,000
+
+        Map<String,Set<Object[]>> groupByTitleAndSalaryRangeMultipleItems = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getTitle(),
           Collectors.mapping(
             item -> { if(item.getSalary()>= 80000 && item.getSalary()<= 120000)
-                return new String[]{item.getName(),item.getId()+"",item.getSalary()+""};
+                return new Object[]{item.getName(),item.getId(),item.getSalary()};
                 return null;
             }, Collectors.filtering( item -> item != null, Collectors.toSet())
           )));
         //System.out.println(groupByTitleAndSalaryRangeMultipleItems);
         for(String key : groupByTitleAndSalaryRangeMultipleItems.keySet()){
-            for(String key2[] : groupByTitleAndSalaryRangeMultipleItems.get(key)){
+            for(Object key2[] : groupByTitleAndSalaryRangeMultipleItems.get(key)){
                     System.out.println(Arrays.toString(key2));
             }
         }
 
+        //Average Salary By title
+
+        Map<String,Double> averageSalaryByTitle = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getTitle(), averagingLong(item -> item.getSalary())));
+        System.out.println(averageSalaryByTitle);
+
+        //Average Salary By level
+
+        Map<String,Double> averageSalaryByLevel = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getLevel(), averagingLong(item -> item.getSalary())));
+        System.out.println(averageSalaryByLevel);
+
+
+        //Average Salary By Project
+        Map<String,Double> averageSalaryByProject = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getProject(), averagingLong(item -> item.getSalary())));
+        System.out.println(averageSalaryByProject);
 
     }
 }
