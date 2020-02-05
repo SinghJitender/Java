@@ -9,7 +9,7 @@ public class MoreOnGroupBy {
         List<Employee> listOfEmployees = Arrays.asList(
                 new Employee("Jitender Pal Singh","Developer",50000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
                 new Employee("Amit Ranjan","QA",100000L,"Goldman Sachs","Vikash Kumar Aggarwal","Senior Associate L1","GLM"),
-                new Employee("Rohin Dhingra","QA",45000L,"Goldman Sachs","Shinil Das","Associate L2","GLM"),
+                new Employee("Rohin Dhingra","QA",45000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
                 new Employee("Saquib Kamal","DevOps",80000L,"Goldman Sachs","Balaji","Associate L2","GLM"),
                 new Employee("Ravi Awasthi","Developer",90000L,"Goldman Sachs","Bhavesh Kumar","Associate L1","GLM"),
                 new Employee("Megha Gulati ","QA",50000L,"Goldman Sachs","Shinil Das","Associate L2","DAS"),
@@ -17,7 +17,10 @@ public class MoreOnGroupBy {
                 new Employee("Naveen Mishra","Developer",75000L,"Goldman Sachs","Dipin","Senior Associate L1","Marcus"),
                 new Employee("Bhargo Dev","Developer",120000L,"Goldman Sachs","Bhavesh","Senior Associate L2","GLM"),
                 new Employee("Poonam Aggarwal","Bussiness Analyst",150000L,"Goldman Sachs","Bhavesh","Manager","GLM"),
-                new Employee("Rohit Nagdeo","QA",110000L,"Goldman Sachs","Vikash Kumar Aggarwal","Senior Associate L2","GLM")
+                new Employee("Rohit Nagdeo","QA",110000L,"Goldman Sachs","Vikash Kumar Aggarwal","Senior Associate L2","GLM"),
+                new Employee("Prabhjot Singh","Developer",60000L,"Verizon","Sumit Pandey","Associate L2","Verizon 1"),
+                new Employee("Udit","Developer",70000L,"Verizon","Sumit Pandey","Associate L2","Verizon 2"),
+                new Employee("Krishna","QA",40000L,"Verizon","Sumit Pandey","Associate L1","Verizon 2")
         );
 
 
@@ -44,15 +47,25 @@ public class MoreOnGroupBy {
         // GroupBy title fetch name where salary between 65,000 to 1,00,000
 
         Map<String,Set<String>> groupBySalaryBetween = listOfEmployees.stream().collect(
-                Collectors.groupingBy( item -> item.getTitle() , Collectors.mapping( item -> {
-                    if (item.getSalary()>=65000 && item.getSalary()<= 100000)
-                        return item.getName();
-                    return null;
-                }, Collectors.filtering( item -> item != null, Collectors.toSet()) ) ) );
+                Collectors.groupingBy( item -> item.getTitle()
+                        , Collectors.mapping( item -> {
+                            if (item.getSalary()>=65000 && item.getSalary()<= 100000)
+                                return item.getName();
+                            return null;
+                        }, Collectors.filtering( item -> item != null, Collectors.toSet()) ) ) );
         System.out.println(groupBySalaryBetween);
 
 
         // GroupBy project and account
+
+        Map<String,Map<String, Set<String>>> groupByProjectThenAccount = listOfEmployees.stream().collect(
+          Collectors.groupingBy( item->item.getProject(),
+                  Collectors.groupingBy( item -> item.getAccount(),
+                          Collectors.mapping(item -> item.getName() ,Collectors.toSet())
+          )));
+
+        System.out.println(groupByProjectThenAccount);
+
         // count of employees in each account
         // count of managers in each account
         // GroupBy level
