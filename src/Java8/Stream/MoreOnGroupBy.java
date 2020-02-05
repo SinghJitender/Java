@@ -86,6 +86,14 @@ public class MoreOnGroupBy {
         System.out.println(namesOfManager);
 
         // GroupBy level
+
+        Map<String,Set<String>> groupByLevel = listOfEmployees.stream().collect(Collectors.groupingBy(
+           item -> item.getLevel(), Collectors.mapping(
+                   item -> item.getName() , Collectors.toSet()
+                )
+        ));
+        System.out.println(groupByLevel);
+
         // GroupBy title having salary between 30,000 and 1,20,000
     }
 }
