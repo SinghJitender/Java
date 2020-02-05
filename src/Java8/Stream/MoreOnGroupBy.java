@@ -94,7 +94,16 @@ public class MoreOnGroupBy {
         ));
         System.out.println(groupByLevel);
 
-        // GroupBy title having salary between 30,000 and 1,20,000
+        //Fetch name of employees GroupBy title having salary between 30,000 and 1,20,000
+
+        Map<String,Set<String>> groupByTitleAndSalaryRange = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getTitle(),
+          Collectors.mapping(
+           item -> { if(item.getSalary()>= 80000 && item.getSalary()<= 120000)
+               return item.getName();
+           return null;
+           }, Collectors.filtering( item -> item != null, Collectors.toSet())
+          )));
+        System.out.println(groupByTitleAndSalaryRange);
     }
 }
 
