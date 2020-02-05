@@ -104,6 +104,22 @@ public class MoreOnGroupBy {
            }, Collectors.filtering( item -> item != null, Collectors.toSet())
           )));
         System.out.println(groupByTitleAndSalaryRange);
+
+        Map<String,Set<String[]>> groupByTitleAndSalaryRangeMultipleItems = listOfEmployees.stream().collect(Collectors.groupingBy(item -> item.getTitle(),
+          Collectors.mapping(
+            item -> { if(item.getSalary()>= 80000 && item.getSalary()<= 120000)
+                return new String[]{item.getName(),item.getId()+"",item.getSalary()+""};
+                return null;
+            }, Collectors.filtering( item -> item != null, Collectors.toSet())
+          )));
+        //System.out.println(groupByTitleAndSalaryRangeMultipleItems);
+        for(String key : groupByTitleAndSalaryRangeMultipleItems.keySet()){
+            for(String key2[] : groupByTitleAndSalaryRangeMultipleItems.get(key)){
+                    System.out.println(Arrays.toString(key2));
+            }
+        }
+
+
     }
 }
 
