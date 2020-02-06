@@ -119,7 +119,7 @@ public class ComplexGroupByJava {
         System.out.println("\n\nSearch By Product Name (OnePlus)");
         List<Product> searchResults = searchByProductName("OnePlus");
         for(Product product:searchResults){
-            System.out.println(product);
+            System.out.println("["+product+"]");
         }
 
 
@@ -127,7 +127,7 @@ public class ComplexGroupByJava {
     }
 
     public static List<Product> searchByProductName(String search){
-        return listOfProducts.stream().filter( product -> product.getProductName().contains(search)).collect(Collectors.toList()) ;
+        return listOfProducts.stream().filter(product -> product.getProductName().contains(search)).collect(Collectors.toList()) ;
     }
 
     public static Map<Category,Map<Color,Set<Object[]>>> groupByCategoryAndColor() {
