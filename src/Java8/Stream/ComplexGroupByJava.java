@@ -1,12 +1,15 @@
 package Java8.Stream;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ComplexGroupByJava {
-    public static void main(String[] args) {
-
-        List<Product> listOfProducts = Arrays.asList(
+    private static List<Product> listOfProducts;
+    static {
+       listOfProducts = Arrays.asList(
                 new Product.Builder("OnePlus 7",100,
                         Category.ELECTRONIC,32000.00,"Just a smartphone. Faster than OnePlus 6T","Jitender",
                         10.00).setColor(Color.BLACK).build(),
@@ -63,22 +66,47 @@ public class ComplexGroupByJava {
                         ,"Prachi", 10.00).setAuthorName("SharmaJi").build()
         );
 
+    }
+    public static void main(String[] args) {
+
         System.out.println("Group By Product Category");
-        Map<Category, List<Product>> categoryListMap = groupByCategory(listOfProducts);
+        Map<Category, List<Product>> categoryListMap = groupByCategory();
         for(Category category: categoryListMap.keySet()) {
             System.out.println(category + " : ");
             for(Product product : categoryListMap.get(category)) {
-                System.out.println("[ "+ product+" ]");
+                System.out.println("["+ product+"]");
             }
         }
-        //System.out.println(groupByCategory(listOfProducts));
 
+        System.out.println("\n\nGroup By Seller Name");
+        Map<String, List<Product>> groupBySellerName = groupBySellerName();
+        for(String name : groupBySellerName.keySet()) {
+            System.out.println(name + " : ");
+            for(Product product : groupBySellerName.get(name)) {
+                System.out.println("["+ product+"]");
+            }
+        }
+
+        System.out.println("\n\nSeller who sells in more than 'X' number of categories. (Here X = 1)");
+        System.out.println(sellerInMoreThanXCategory(1));
 
     }
 
-    public static Map<Category,List<Product>> groupByCategory(List<Product> listOfProduct) {
-        return listOfProduct.stream().collect(Collectors.groupingBy(Product::getCategory));
+    public static Set<String> sellerInMoreThanXCategory(int x) {
+        Map<String, Set<Category>> sellerGroupedByCategory = listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName,
+                Collectors.mapping(Product::getCategory, Collectors.toSet())));
+       return sellerGroupedByCategory.keySet().stream().filter(key -> sellerGroupedByCategory.get(key).size()>x)
+               .collect(Collectors.toSet());
     }
+
+    public static Map<Category,List<Product>> groupByCategory() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getCategory));
+    }
+
+    public static Map<String,List<Product>> groupBySellerName() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName));
+    }
+
 }
 
 class Product {
@@ -154,8 +182,7 @@ class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "productName='" + productName + '\'' +
+        return "productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 ", category=" + category +
                 ", price=" + price +
@@ -164,8 +191,7 @@ class Product {
                 ", sellerName='" + sellerName + '\'' +
                 ", authorName='" + authorName + '\'' +
                 ", size=" + size +
-                ", discount=" + discount +
-                '}';
+                ", discount=" + discount ;
     }
 
     public static class Builder {
