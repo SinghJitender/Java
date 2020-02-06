@@ -2,7 +2,9 @@ package Java8.Stream;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -114,8 +116,18 @@ public class ComplexGroupByJava {
             }
         }
 
+        System.out.println("\n\nSearch By Product Name (OnePlus)");
+        List<Product> searchResults = searchByProductName("OnePlus");
+        for(Product product:searchResults){
+            System.out.println(product);
+        }
 
 
+
+    }
+
+    public static List<Product> searchByProductName(String search){
+        return listOfProducts.stream().filter( product -> product.getProductName().contains(search)).collect(Collectors.toList()) ;
     }
 
     public static Map<Category,Map<Color,Set<Object[]>>> groupByCategoryAndColor() {
