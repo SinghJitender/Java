@@ -102,9 +102,28 @@ public class ComplexGroupByJava {
             System.out.println("["+p+"]");
         }
 
+        System.out.println("\n\nShow Name,Price and Description - Group By Category and Color");
+        Map<Category, Map<Color, Set<Object[]>>> categoryColorMap = groupByCategoryAndColor();
+        for(Category category : categoryColorMap.keySet()) {
+            System.out.println(category);
+            for(Color color : categoryColorMap.get(category).keySet()) {
+                System.out.println("\t"+color);
+                for(Object[] o : categoryColorMap.get(category).get(color)) {
+                    System.out.println("\t\t"+Arrays.toString(o));
+                }
+            }
+        }
 
 
 
+    }
+
+    public static Map<Category,Map<Color,Set<Object[]>>> groupByCategoryAndColor() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getCategory,
+          Collectors.groupingBy(Product::getColor,
+            Collectors.mapping(product -> {
+                return new Object[]{product.getProductName(),product.getPrice(), product.getDescription()};
+            },Collectors.toSet()))));
     }
 
     public static List<Product> productsWithDiscount(double x) {
