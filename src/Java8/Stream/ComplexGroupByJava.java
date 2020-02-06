@@ -90,13 +90,38 @@ public class ComplexGroupByJava {
         System.out.println("\n\nSeller who sells in more than 'X' number of categories. (Here X = 1)");
         System.out.println(sellerInMoreThanXCategory(1));
 
+        System.out.println("\n\nSeller and categories they sell in");
+        Map<String, Set<Category>> sellerAndCategory = sellerAndCategory();
+        for(String sellerName : sellerAndCategory.keySet()) {
+            System.out.println(sellerName +" : "+ sellerAndCategory.get(sellerName));
+        }
+
+        System.out.println("\n\nProducts with discount more than 'X%'. Here X is 18");
+        List<Product> products = productsWithDiscount(18.00);
+        for(Product p : products){
+            System.out.println("["+p+"]");
+        }
+
+
+
+
     }
+
+    public static List<Product> productsWithDiscount(double x) {
+        return listOfProducts.stream().filter(product -> product.getDiscount()>=x).collect(Collectors.toList());
+    }
+
 
     public static Set<String> sellerInMoreThanXCategory(int x) {
         Map<String, Set<Category>> sellerGroupedByCategory = listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName,
                 Collectors.mapping(Product::getCategory, Collectors.toSet())));
        return sellerGroupedByCategory.keySet().stream().filter(key -> sellerGroupedByCategory.get(key).size()>x)
                .collect(Collectors.toSet());
+    }
+
+    public static  Map<String, Set<Category>> sellerAndCategory() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName,
+          Collectors.mapping(Product::getCategory, Collectors.toSet())));
     }
 
     public static Map<Category,List<Product>> groupByCategory() {
