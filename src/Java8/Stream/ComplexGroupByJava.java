@@ -2,7 +2,9 @@ package Java8.Stream;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -91,13 +93,67 @@ public class ComplexGroupByJava {
         System.out.println("\n\nSeller who sells in more than 'X' number of categories. (Here X = 1)");
         System.out.println(sellerInMoreThanXCategory(1));
 
+        System.out.println("\n\nSeller and categories they sell in");
+        Map<String, Set<Category>> sellerAndCategory = sellerAndCategory();
+        for(String sellerName : sellerAndCategory.keySet()) {
+            System.out.println(sellerName +" : "+ sellerAndCategory.get(sellerName));
+        }
+
+        System.out.println("\n\nProducts with discount more than 'X%'. Here X is 18");
+        List<Product> products = productsWithDiscount(18.00);
+        for(Product p : products){
+            System.out.println("["+p+"]");
+        }
+
+        System.out.println("\n\nShow Name,Price and Description - Group By Category and Color");
+        Map<Category, Map<Color, Set<Object[]>>> categoryColorMap = groupByCategoryAndColor();
+        for(Category category : categoryColorMap.keySet()) {
+            System.out.println(category);
+            for(Color color : categoryColorMap.get(category).keySet()) {
+                System.out.println("\t"+color);
+                for(Object[] o : categoryColorMap.get(category).get(color)) {
+                    System.out.println("\t\t"+Arrays.toString(o));
+                }
+            }
+        }
+
+        System.out.println("\n\nSearch By Product Name (OnePlus)");
+        List<Product> searchResults = searchByProductName("OnePlus");
+        for(Product product:searchResults){
+            System.out.println("["+product+"]");
+        }
+
+
+
     }
+
+    public static List<Product> searchByProductName(String search){
+        return listOfProducts.stream().filter(product -> product.getProductName().contains(search)).collect(Collectors.toList()) ;
+    }
+
+    public static Map<Category,Map<Color,Set<Object[]>>> groupByCategoryAndColor() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getCategory,
+          Collectors.groupingBy(Product::getColor,
+            Collectors.mapping(product -> {
+                return new Object[]{product.getProductName(),product.getPrice(), product.getDescription()};
+            },Collectors.toSet()))));
+    }
+
+    public static List<Product> productsWithDiscount(double x) {
+        return listOfProducts.stream().filter(product -> product.getDiscount()>=x).collect(Collectors.toList());
+    }
+
 
     public static Set<String> sellerInMoreThanXCategory(int x) {
         Map<String, Set<Category>> sellerGroupedByCategory = listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName,
                 Collectors.mapping(Product::getCategory, Collectors.toSet())));
        return sellerGroupedByCategory.keySet().stream().filter(key -> sellerGroupedByCategory.get(key).size()>x)
                .collect(Collectors.toSet());
+    }
+
+    public static  Map<String, Set<Category>> sellerAndCategory() {
+        return listOfProducts.stream().collect(Collectors.groupingBy(Product::getSellerName,
+          Collectors.mapping(Product::getCategory, Collectors.toSet())));
     }
 
     public static Map<Category,List<Product>> groupByCategory() {
