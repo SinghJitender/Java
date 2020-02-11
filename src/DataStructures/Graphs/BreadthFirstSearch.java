@@ -1,6 +1,6 @@
 package DataStructures.Graphs;
 
-public class DepthFirstSearch {
+public class BreadthFirstSearch {
     public static void main(String[] args) {
         Graph graph = new Graph(4);
         graph.addEdge(0, 1);
@@ -10,6 +10,6 @@ public class DepthFirstSearch {
         graph.addEdge(2, 3);
         graph.addEdge(3, 3);
 
-        graph.DFS(2);
+        graph.BFS(2);
     }
 }
