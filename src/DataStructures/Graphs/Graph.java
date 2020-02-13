@@ -1,5 +1,6 @@
 package DataStructures.Graphs;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -59,6 +60,29 @@ public class Graph {
         }
         for(int i=0;i<list.size();i++){
             BFSUtil(list.get(i),visited);
+        }
+    }
+
+    public void printAllPathsToFrom(int edgeTo,int edgeFrom) {
+
+        printAllPaths(edgeTo,edgeFrom,new ArrayList<>());
+    }
+
+    private void printAllPaths(int to, int from,ArrayList<Integer> list) {
+        list.add(to);
+        if(to==from) {
+            System.out.println(list);
+            return;
+        }
+
+        Iterator<Integer> iterator = adj[to].iterator();
+        while(iterator.hasNext()) {
+            Integer i = iterator.next();
+            if(list.contains(i)!=true) {
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.addAll(list);
+                printAllPaths(i, from, temp);
+            }
         }
     }
 
