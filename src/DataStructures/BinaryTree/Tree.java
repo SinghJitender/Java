@@ -3,7 +3,9 @@ package DataStructures.BinaryTree;
 import java.util.ArrayList;
 
 public class Tree<T> {
+
     private static ArrayList elements = new ArrayList();
+
     private TreeNode root = null;
 
     public Tree() {
@@ -104,6 +106,4 @@ public class Tree<T> {
             System.out.println("Element not found.");
         }
     }
-
-
 }
