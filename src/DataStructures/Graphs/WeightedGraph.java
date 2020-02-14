@@ -1,7 +1,8 @@
 package DataStructures.Graphs;
 
-import java.sql.SQLOutput;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class WeightedGraph {
 
@@ -40,10 +41,8 @@ public class WeightedGraph {
         }
         findShortestPathFrom(v,0, distance, new HashSet<>());
         for(int i=0;i<distance.length;i++) {
-
             System.out.println("From "+v+" To "+i +" minimum distance weight is : "+ (distance[i]==Integer.MAX_VALUE?" NULL (No Way Found)":distance[i]));
         }
-        //System.out.println("Distances : "+ Arrays.toString(distance));
     }
 
     private void findShortestPathFrom(int v,int weight, int distance[], Set<Integer> visited) {
