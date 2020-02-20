@@ -8,23 +8,25 @@ public class KthLargestElementInArrayUsingModifiedQuickSort {
         int arr[] = {10,2,34,16,57,35,29,77,48,4,92,8,1};
         int k = 1;
         quickSort(arr,0,arr.length-1, k);
-        System.out.println("Sorted Array : "+ Arrays.toString(arr));
+        System.out.println("Array after modified quicksort : "+ Arrays.toString(arr));
         if(flag==false)
             System.out.println(k+"th smallest element found : "+arr[k]);
     }
-    public static void quickSort(int arr[], int low, int high, int k) {
+    public static boolean quickSort(int arr[], int low, int high, int k) {
         int pivot;
         if(high>low) {
             pivot = partition(arr,low,high);
             if(pivot == k) {
-                System.out.println(k+"th smallest element found : "+arr[k]);
+                System.out.println(k+"th smallest element found - "+arr[k]);
                 flag = true;
-                return ;
-            } else {
-                quickSort(arr, low, pivot - 1, k);
-                quickSort(arr, pivot + 1, high, k);
+                return true;
             }
+             if(pivot > k)
+                 return quickSort(arr, low, pivot - 1, k);
+             if(pivot < k)
+                return quickSort(arr, pivot + 1, high, k);
         }
+        return false;
     }
     public static int partition(int arr[],int low,int high) {
         int left, right, pivot = arr[low];
