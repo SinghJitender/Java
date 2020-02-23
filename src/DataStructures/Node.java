@@ -1,6 +1,7 @@
 package DataStructures;
 
 public class Node {
+
   private int data;
   private Node node;
 
