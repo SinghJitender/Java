@@ -9,6 +9,8 @@ public class FiniteAutomata_BuildStateMachine {
   public static void main(String[] args) {
     String pattern = "ababaca";
     Hashtable<String ,Integer> table[] = new Hashtable[pattern.length()];
+    String states[] = new String[pattern.length()];
+
     for(int i=0;i<pattern.length();i++){
       table[i] = new Hashtable<>();
     }
@@ -22,21 +24,26 @@ public class FiniteAutomata_BuildStateMachine {
       table[i].put(pattern.charAt(i)+"",i+1);
       waste = temp;
       temp += pattern.charAt(i);
+      states[i] = temp;
+
       System.out.println("\nIteration : "+ i + " -- Set : "+set);
       System.out.println("Current Pattern : "+temp +"  Last Pattern : "+waste+"\n");
+
       for(Character key: set) {
         String x = waste+key;
-        System.out.println("\tTrying for string : " + x+ " pattern : "+temp);
-        for(int j=0;j<=i;j++) {
-          String matchWith = x.substring(j);
-          System.out.println("\t\tx : "+matchWith);
-          for(int k=0;k<temp.length()-matchWith.length()+1;k++) {
-            if(matchWith.equals(temp)) {
-              System.out.println("\t\tPrefix found :  Next state from " +temp+" if char="+key+" will be "+(i+1));
+        System.out.println("\tTrying for string : " + x);
+        for(int j=x.length()-1;j>=0;j--) {
+          String str = x.substring(j);
+          System.out.println("Comparing "+str);
+          for(int k=0;k<str.length();k++){
+            if(str.equals(states[k])) {
+              System.out.println("String matches with state["+k+"]="+states[k]);
+              if(pattern.charAt(i)!=key)
+                table[i].put(key+"",k+1);
             }
           }
-
         }
+
       }
 
       //System.out.println(temp + " - " + pattern);
