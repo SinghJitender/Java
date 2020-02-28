@@ -8,8 +8,9 @@ import java.util.Set;
 public class FiniteAutomata_BuildStateMachine {
   public static void main(String[] args) {
     String pattern = "ababaca";
+    pattern=pattern+"/";
     Hashtable<String ,Integer> table[] = new Hashtable[pattern.length()];
-    String states[] = new String[pattern.length()];
+    String states[] = new String[pattern.length()+1];
 
     for(int i=0;i<pattern.length();i++){
       table[i] = new Hashtable<>();
@@ -19,26 +20,27 @@ public class FiniteAutomata_BuildStateMachine {
     Set<Character> set = new HashSet<>();
 
     for(int i=0;i<pattern.length();i++) { //states i
-      String waste = "";
-      set.add(pattern.charAt(i));
-      table[i].put(pattern.charAt(i)+"",i+1);
-      waste = temp;
-      temp += pattern.charAt(i);
-      states[i] = temp;
+      String waste = temp;
+      if(pattern.charAt(i)!='/') {
+        set.add(pattern.charAt(i));
+        table[i].put(pattern.charAt(i) + "", i + 1);
+        temp += pattern.charAt(i);
+        states[i] = temp;
+      }
 
-      System.out.println("\nIteration : "+ i + " -- Set : "+set);
-      System.out.println("Current Pattern : "+temp +"  Last Pattern : "+waste+"\n");
+      //System.out.println("\nIteration : "+ i + " -- Set : "+set);
+      //System.out.println("Current Pattern : "+temp +"  Last Pattern : "+waste+"\n");
 
       for(Character key: set) {
         String x = waste+key;
-        System.out.println("\tTrying for string : " + x);
+        //System.out.println("\tTrying for string : " + x);
         for(int j=x.length()-1;j>=0;j--) {
           String str = x.substring(j);
-          System.out.println("Comparing "+str);
+          //System.out.println("\t\tComparing "+str);
           for(int k=0;k<str.length();k++){
             if(str.equals(states[k])) {
-              System.out.println("String matches with state["+k+"]="+states[k]);
-              if(pattern.charAt(i)!=key)
+              //System.out.println("\t\tString matches with state["+k+"]="+states[k]);
+              if(pattern.charAt(i)!=key )
                 table[i].put(key+"",k+1);
             }
           }
@@ -48,6 +50,13 @@ public class FiniteAutomata_BuildStateMachine {
 
       //System.out.println(temp + " - " + pattern);
     }
-    System.out.println(Arrays.toString(table));
+    //System.out.println(Arrays.toString(table));
+
+    for(int i=0;i<table.length;i++) {
+      System.out.println("State "+i+ " :");
+      for(String key : table[i].keySet()){
+        System.out.println(" \tIf '" +key + "' go to state " + table[i].get(key) );
+      }
+    }
   }
 }
