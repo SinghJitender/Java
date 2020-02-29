@@ -13,14 +13,11 @@ public class FiniteAutomata_BuildStateMachine {
     pattern=pattern+"/";
     Hashtable<String ,Integer> table[] = new Hashtable[pattern.length()];
     String states[] = new String[pattern.length()+1];
-
     for(int i=0;i<pattern.length();i++){
       table[i] = new Hashtable<>();
     }
-
     String temp="";
     Set<Character> set = new HashSet<>();
-
     for(int i=0;i<pattern.length();i++) { //states i
       String waste = temp;
       if(pattern.charAt(i)!='/') {
@@ -53,14 +50,12 @@ public class FiniteAutomata_BuildStateMachine {
       //System.out.println(temp + " - " + pattern);
     }
     //System.out.println(Arrays.toString(table));
-
     for(int i=0;i<table.length;i++) {
       System.out.println("State "+i+ " :");
       for(String key : table[i].keySet()){
         System.out.println(" \tIf '" +key + "' go to state " + table[i].get(key) );
       }
     }
-
     int state=0;
     for(int i=0;i<text.length();i++) {
       if(state == pattern2.length()-1){
