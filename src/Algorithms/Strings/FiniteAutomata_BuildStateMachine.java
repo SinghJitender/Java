@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class FiniteAutomata_BuildStateMachine {
   public static void main(String[] args) {
+    String text="abababacababaca";
+    String pattern2 = "ababaca";
     String pattern = "ababaca";
     pattern=pattern+"/";
     Hashtable<String ,Integer> table[] = new Hashtable[pattern.length()];
@@ -57,6 +59,19 @@ public class FiniteAutomata_BuildStateMachine {
       for(String key : table[i].keySet()){
         System.out.println(" \tIf '" +key + "' go to state " + table[i].get(key) );
       }
+    }
+
+    int state=0;
+    for(int i=0;i<text.length();i++) {
+      if(state == pattern2.length()-1){
+        System.out.println("Pattern Found at index : "+(i-pattern2.length()+1));
+      }
+      if(table[state].containsKey(text.charAt(i)+"")) {
+        state = table[state].get(text.charAt(i)+"");
+      } else {
+        state = 0;
+      }
+
     }
   }
 }
